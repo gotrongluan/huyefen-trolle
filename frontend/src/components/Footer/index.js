@@ -15,7 +15,7 @@ const Footer = () => {
                 <div className={styles.copyright}>
                     <img alt="logo" src={logo} />
                     <span className={styles.text}>
-                        © 2020 HuYeFen Inc. All rights reserved.
+                        © 2020 HuYeFen Trolle Inc. All rights reserved.
                     </span>
                 </div>
                 <div className={styles.locale}>

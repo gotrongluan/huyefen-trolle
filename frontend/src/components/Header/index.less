@@ -9,15 +9,21 @@
     box-shadow: 0 1px 4px rgba(0, 21, 41,.08);
     .leftContent, .rightContent {
         width: 50%;
+        float: left;
     }
     .leftContent {
         .logo {
-            float: left;
             height: 48px;
+            width: 20%;
+            display: inline-block;
             img {
                 height: 100%;
                 width: auto;
             }
+        }
+        .search {
+            display: inline-block;
+            width: 70%;
         }
     }
     .rightContent {
@@ -29,10 +35,6 @@
             .accountText {
                 padding: 0 15px;
                 padding-right: 10px;
-                :global(.ant-avatar-circle) {
-                    position: relative;
-                    top: -3px;
-                }
             }
         }
         .notifications, .messages {

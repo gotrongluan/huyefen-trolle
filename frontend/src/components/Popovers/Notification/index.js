@@ -152,8 +152,8 @@ export default connect(
     ({ notifications, loading, user }) => ({
         loading: !!loading.effects['notifications/more'],
         initLoading: !!loading.effects['notifications/fetch'],
-        hasMore: notifications.hasMore,
-        notifications: notifications.list,
-        unseen: user.noOfUsNotification
+        // hasMore: notifications.hasMore,
+        // notifications: notifications.list,
+        // unseen: user.noOfUsNotification
     })
 )(Notifications);

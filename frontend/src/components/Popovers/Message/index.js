@@ -145,8 +145,8 @@ export default connect(
     ({ loading, messages, user }) => ({
         initLoading: !!loading.effects['messages/fetch'],
         loading: !!loading.effects['messages/more'],
-        conversations: messages.list,
-        hasMore: messages.hasMore,
-        unseen: user.noOfUsMessage
+        // conversations: messages.list,
+        // hasMore: messages.hasMore,
+        // unseen: user.noOfUsMessage
     })
 )(Messenger);

@@ -27,7 +27,8 @@ const Header = ({ user, dispatch }) => {
                     <Search
                         placeholder="Search everything here..."
                         size="large"
-                        
+                        enterButton
+                        style={{ width: '100%', position: 'relative', top: '12px' }}
                     />
                 </div>
             </div>
