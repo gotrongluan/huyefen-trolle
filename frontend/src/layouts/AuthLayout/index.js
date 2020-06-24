@@ -10,7 +10,7 @@ const AuthLayout = ({ children }) => {
         <Row className={styles.authLayout} style={{ background: `url(${background})` }}>
             <Row className={styles.inlineDiv}>
                 <div className={styles.title}>
-                    <div className={styles.huyefen} onClick={() => router.push('/')}>HuYeFen</div>
+                    <div className={styles.huyefen} onClick={() => router.push('/')}>HuYeFen Trolle</div>
                     <div className={styles.slogan}>
                         {formatMessage({ id: 'authLayout.slogan1' })}
                     </div>
