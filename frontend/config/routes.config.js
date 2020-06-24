@@ -5,17 +5,17 @@ export default [
         title: 'route.auth',
         routes: [
             {
-                path: 'auth/login',
+                path: '/auth/login',
                 title: 'route.auth.login',
                 component: 'Auth/Login'
             },
             {
-                path: 'auth/register',
+                path: '/auth/register',
                 title: 'route.auth.register',
                 component: 'Auth/Register'
             },
             {
-                redirect: 'auth/login'
+                redirect: '/auth/login'
             }
         ]
     },

@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
+    "start": "PORT=8080 umi dev",
     "build": "umi build",
     "test": "umi test",
     "lint": "eslint {src,mock,tests}/**/*.{js,jsx} --fix",
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "antd": "^3.19.5",
+    "classnames": "^2.2.6",
     "dva": "^2.6.0-beta.6",
     "lodash": "^4.17.15",
     "os": "^0.1.1",
@@ -16,6 +17,7 @@
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.8.6",
     "react-reveal": "^1.2.2",
+    "react-spinners": "^0.9.0",
     "react-timeago": "^4.4.0"
   },
   "devDependencies": {

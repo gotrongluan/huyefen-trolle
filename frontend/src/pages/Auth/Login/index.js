@@ -72,6 +72,7 @@ const Login = ({ dispatch, ...props }) => {
                         <Button type="primary" htmlType="submit" className={styles.btn} size="large" icon={loading ? "loading" : null}>
                             {formatMessage({ id: 'login.btn' })}
                         </Button>
+                        {formatMessage({ id: 'login.or' })} <Link to="/auth/register">{formatMessage({ id: 'login.registernow' })}</Link>
                     </Form.Item>
                 </Form>
             </div>
