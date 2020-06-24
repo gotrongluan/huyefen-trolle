@@ -88,6 +88,7 @@ const routes = [
             .default,
         })
       : require('../../layouts/BasicLayout').default,
+    Routes: [require('../../routes/Authenticated').default],
     title: 'route.basic',
     routes: [
       {

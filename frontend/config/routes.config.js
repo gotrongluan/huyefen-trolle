@@ -22,6 +22,7 @@ export default [
     {
         path: '/',
         component: '../layouts/BasicLayout',
+        Routes: ['./src/routes/Authenticated'],
         title: 'route.basic',
         routes: [
             {
