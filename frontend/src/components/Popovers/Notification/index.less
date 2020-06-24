@@ -1,0 +1,58 @@
+.popover {
+    width: 400px;
+    z-index: 1009;
+    :global(.ant-popover-inner-content) {
+        padding: 0;
+    }
+    :global(.ant-list-item) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    :global(.ant-spin) {
+        max-height: 100% !important;
+    }
+}
+
+.empty {
+    text-align: center;
+    height: 474px;
+    .inlineDiv {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+  
+.scrollEle {
+    & > div {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.notiItem {
+    &:hover {
+        opacity: 0.5;
+    }
+    cursor: pointer;
+}
+
+.oldLoading {
+    text-align: center;
+    padding-bottom: 8px;
+}
+
+.viewAll {
+    padding: 6px 0;
+    text-align: center;
+    color: @primary-color;
+    border-radius: 0 0 4px 4px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.8;
+    }
+}

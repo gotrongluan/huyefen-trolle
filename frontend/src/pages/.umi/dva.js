@@ -21,6 +21,8 @@ export function _onCreate() {
   });
   
   app.model({ namespace: 'auth', ...(require('/Users/luantnguyen/Documents/2020/javascript/reactjs/huyefen-trolle/frontend/src/models/auth.js').default) });
+app.model({ namespace: 'messages', ...(require('/Users/luantnguyen/Documents/2020/javascript/reactjs/huyefen-trolle/frontend/src/models/messages.js').default) });
+app.model({ namespace: 'notifications', ...(require('/Users/luantnguyen/Documents/2020/javascript/reactjs/huyefen-trolle/frontend/src/models/notifications.js').default) });
 app.model({ namespace: 'user', ...(require('/Users/luantnguyen/Documents/2020/javascript/reactjs/huyefen-trolle/frontend/src/models/user.js').default) });
   return app;
 }

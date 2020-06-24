@@ -1,0 +1,78 @@
+.header {
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+    height: @header-height;
+    padding-left: 18px;
+    padding-right: 0px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 21, 41,.08);
+    .leftContent, .rightContent {
+        width: 50%;
+    }
+    .leftContent {
+        .logo {
+            float: left;
+            height: 48px;
+            img {
+                height: 100%;
+                width: auto;
+            }
+        }
+    }
+    .rightContent {
+        &, .account, .messages, .notifications {
+            float: right;
+        }
+        .account {
+            cursor: pointer;
+            .accountText {
+                padding: 0 15px;
+                padding-right: 10px;
+                :global(.ant-avatar-circle) {
+                    position: relative;
+                    top: -3px;
+                }
+            }
+        }
+        .notifications, .messages {
+            padding: 0 18px;
+            cursor: pointer;
+        }
+        .messages {
+            padding-right: 20px;
+        }
+    }
+}
+
+.accountPopover {
+    width: 300px;
+    :global(.ant-popover-inner-content) {
+        padding: 5px 0px 15px 0px;
+    }
+    .info {
+        padding: 10px 20px;
+        margin-bottom: 5px;
+        .mail {
+            font-size: 0.9em;
+        }
+    }
+    .item {
+        margin: 0px 20px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        &:last-child {
+            .text {
+                color: @primary-color;
+            }
+        }
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    .divider {
+        margin: 10px 0;
+    }
+}
