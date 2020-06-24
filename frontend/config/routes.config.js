@@ -26,6 +26,11 @@ export default [
         title: 'route.basic',
         routes: [
             {
+                path: '/dashboard',
+                title: 'route.dashboard',
+                component: 'Dashboard'
+            },
+            {
                 path: '/exception',
                 routes: [
                     {

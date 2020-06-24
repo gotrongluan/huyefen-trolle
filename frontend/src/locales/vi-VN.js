@@ -43,6 +43,7 @@ export default {
 	'register.phone.placeholder': 'Điện thoại',
 	'register.btn': 'Đăng ký',
 	'register.or': 'Hoặc',
-	'register.already': 'Đã có tài khoản!',
+    'register.already': 'Đã có tài khoản!',
+    'route.dashboard': 'Dashboard'
 }
   

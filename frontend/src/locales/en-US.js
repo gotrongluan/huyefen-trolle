@@ -48,4 +48,5 @@ export default {
 	'register.btn': 'Register',
 	'register.or': 'Or',
 	'register.already': 'Already have an account!',
+	'route.dashboard': 'Dashboard'
 }

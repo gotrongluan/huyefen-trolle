@@ -20,7 +20,7 @@ const Login = ({ dispatch, ...props }) => {
         if (!password || password.trim().length === 0) return message.error(formatMessage({ id: 'login.emptypassword' }));
         const from = (location.state && location.state.from) || '/';
         dispatch({
-            type: 'user/login',
+            type: 'auth/login',
             from,
             payload: {
                 phone, password
@@ -80,4 +80,4 @@ const Login = ({ dispatch, ...props }) => {
     )
 }
 
-export default withRouter(Form.create()(connect(({ loading }) => ({ loading: !!loading.effects['user/login'] }))(Login)));
+export default withRouter(Form.create()(connect(({ loading }) => ({ loading: !!loading.effects['auth/login'] }))(Login)));
