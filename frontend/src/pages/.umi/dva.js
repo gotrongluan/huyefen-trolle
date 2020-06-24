@@ -20,7 +20,8 @@ export function _onCreate() {
     app.use(plugin);
   });
   
-  
+  app.model({ namespace: 'auth', ...(require('/Users/luantnguyen/Documents/2020/javascript/reactjs/huyefen-trolle/frontend/src/models/auth.js').default) });
+app.model({ namespace: 'user', ...(require('/Users/luantnguyen/Documents/2020/javascript/reactjs/huyefen-trolle/frontend/src/models/user.js').default) });
   return app;
 }
 
