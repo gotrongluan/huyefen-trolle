@@ -1,0 +1,36 @@
+.footer {
+    //border-top: 0.5px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 3px 1px 3px rgba(0, 21, 41,.08);
+    background: #fff;
+    .brand {
+        height: 90px;
+        position: relative;
+        .copyright {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            text-align: center;
+            transform: translate(-50%, -50%);
+            img {
+                width: 110px;
+            }
+            .text {
+                color: rgba(29, 165, 122, 0.7);
+                line-height: 49px;
+            }
+        }
+        .locale {
+            width: 150px;
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translate(0%, -50%);
+        }
+    }
+    .colorBar {
+        height: 6px;
+        background: @primary-color;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, @primary-color, lime);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, @primary-color, lime); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+}
