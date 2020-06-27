@@ -16,15 +16,17 @@ export default {
         },
         *login({ from, payload }, { call, put }) {
             const { phone, password } = payload;
-            yield delay(1600);
-            const sampleToken = 'sample-token';
-            storage.setToken(sampleToken);
-            yield put({
-                type: 'user/save',
-                payload: sampleUser
-            });
-            //set FCM token
-            router.replace(from);
+            const response = yield call(authServices.login, phone, password);
+            if (response) {
+                const user = response.data;
+                const sampleToken = 'sample-token';
+                storage.setToken(sampleToken);
+                yield put({
+                    type: 'user/save',
+                    payload: user
+                });
+                router.replace(from);
+            }
         },
         *logout(_, { put }) {
             storage.setToken(null);
