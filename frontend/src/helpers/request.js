@@ -1,8 +1,8 @@
 import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import router from 'umi/router';
-import storage from '@/utils/storage';
-import { toQueryString } from '@/utils/utils';
+import storage from '@/helpers/storage';
+import { toQueryString } from '@/helpers/utils';
 import styles from './index.less';
 
 const { NODE_ENV } = process.env;
