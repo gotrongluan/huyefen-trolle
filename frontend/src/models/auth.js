@@ -2,14 +2,17 @@ import { delay } from '@/helpers/utils';
 import storage from '@/helpers/storage';
 import router from 'umi/router';
 import sampleUser from '@/assets/fakers/user';
+import * as authServices from '@/services/auth';
 
 export default {
     namespace: 'auth',
     state: null,
     effects: {
         *register({ payload }, { call, put }) {
-            yield delay(1200);
-            router.push('/auth/login');
+            const response = yield call(authServices.register, payload);
+            if (response) {
+                router.push('/auth/login');
+            }
         },
         *login({ from, payload }, { call, put }) {
             const { phone, password } = payload;
