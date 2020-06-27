@@ -7,5 +7,11 @@ export async function login(phone, password) {
             password,
             phone
         }
+    }
+};
+                   
+export async function register(params) {
+    return apiPost(`${AUTH_API_URL}/register`, {
+        body: params
     });
-}
+};

@@ -9,8 +9,10 @@ export default {
     state: null,
     effects: {
         *register({ payload }, { call, put }) {
-            yield delay(1200);
-            router.push('/auth/login');
+            const response = yield call(authServices.register, payload);
+            if (response) {
+                router.push('/auth/login');
+            }
         },
         *login({ from, payload }, { call, put }) {
             const { phone, password } = payload;
