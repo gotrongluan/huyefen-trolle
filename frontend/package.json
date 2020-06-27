@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "start": "PORT=8000 umi dev",
+    "start:win": "SET PORT=8000&&umi dev",
     "build": "umi build",
     "test": "umi test",
     "lint": "eslint {src,mock,tests}/**/*.{js,jsx} --fix",
