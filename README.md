@@ -39,3 +39,9 @@ Thư mục này có các thư mục con:
 * models: Thư mục chứa các model, liên quan đến các khái niệm như [redux](redux.js.org), [redux-saga](https://redux-saga.js.org). Tạm hiểu đây là nơi viết logic gọi API đến server.
 * routes: Cùng là các component, thường dùng để xử lí logic authenticate.
 * services: Chứa các file service, là phần nằm giữa API và models. Model không gọi trực tiếp API mà thông qua service, service sẽ gọi trực tiếp API.
+
+#src 
+Lưu ý mỗi lần git commit
+```
+git commit -m [message] --no-verify
+```
