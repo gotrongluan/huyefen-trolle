@@ -1,5 +1,7 @@
 .home {
-    padding: 30px 24px;
+    padding: 30px;
+    margin: auto;
+    width: 75%;
     .welcome {
         font-size: 20px;
         font-weight: bold;
@@ -9,5 +11,13 @@
     .projectsList {
         margin-top: 25px;
         margin-bottom: 40px;
+        .projectItem {
+            cursor: pointer;
+            padding-left: 12px;
+            padding-right: 12px;
+            &:hover {
+                background: rgba(128, 128, 128, 0.03);
+            }
+        }
     }
 }

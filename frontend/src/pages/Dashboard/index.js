@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
+import { upperCase } from 'lodash';
+import Link from 'umi/link';
+import moment from 'moment';
+import randomColor from 'randomcolor';
 import { List, Avatar, message, Button } from 'antd';
 import DivLoading from '@/components/DivLoading';
 import styles from './index.less';
@@ -53,12 +57,16 @@ const Dashboard = (props) => {
                         itemLayout="horizontal"
                         dataSource={projects}
                         renderItem={item => (
-                            <List.Item key={item.id}>
-                                <List.Item.Meta
-                                    title={item.title}
-                                    description={item.description}
-                                    //avatar={<Avatar>{item.title[0].upperCase()}</Avatar>}
-                                />
+                            <List.Item key={item.id} className={styles.projectItem} extra={(
+                                <span>{`Created date: ${moment(item.createdAt).format("DD-MM-YYYY")}`}</span>
+                            )}>
+                                <Link to={`/projects/${item.id}`}>
+                                    <List.Item.Meta
+                                        title={<b>{item.title}</b>}
+                                        description={item.description}
+                                        avatar={<Avatar style={{ backgroundColor: randomColor() }}>{item.avatar || upperCase(item.title[0])}</Avatar>}
+                                    />
+                                </Link>
                             </List.Item>
                         )}
                     />
