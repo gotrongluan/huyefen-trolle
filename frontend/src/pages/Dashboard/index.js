@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'dva';
-import { upperCase } from 'lodash';
+import { upperCase, size } from 'lodash';
 import Link from 'umi/link';
 import moment from 'moment';
 import randomColor from 'randomcolor';
-import { List, Avatar, message, Button } from 'antd';
+import { List, Avatar, message, Button, Input, Select, Row, Col } from 'antd';
 import DivLoading from '@/components/DivLoading';
 import styles from './index.less';
+
+const { Option } = Select;
+const { Search } = Input;
 
 //props
 const Dashboard = (props) => {
@@ -22,23 +25,22 @@ const Dashboard = (props) => {
     } = props;
 
     useEffect(() => {
-        dispatch({
-            type: 'projects/fetch'
-        });
-        message.success('mounted!');
-        return () => {
-            message.success('Unmounted!!!!!!');
-
+        if (!projects) {
+            dispatch({
+                type: 'projects/fetch'
+            });
         }
-    }, [dispatch]);
+    }, []);
 
-    let name = null;
-    if (!user) {
-        name = '...';
+    const handleChangePage = page => {
+        dispatch({
+            type: 'projects/changePage',
+            payload: page
+        });
     }
-    else if (user) {
-        name = user.name;
-    }
+
+    const name = user ? user.name : '...';
+
     return (
         <div className={styles.home}>
             <div className={styles.welcome}>
@@ -53,23 +55,50 @@ const Dashboard = (props) => {
                 {!user || fetchLoading || !projects ? (
                     <DivLoading />
                 ) : (
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={projects}
-                        renderItem={item => (
-                            <List.Item key={item.id} className={styles.projectItem} extra={(
-                                <span>{`Created date: ${moment(item.createdAt).format("DD-MM-YYYY")}`}</span>
-                            )}>
-                                <Link to={`/projects/${item.id}`}>
-                                    <List.Item.Meta
-                                        title={<b>{item.title}</b>}
-                                        description={item.description}
-                                        avatar={<Avatar style={{ backgroundColor: randomColor() }}>{item.avatar || upperCase(item.title[0])}</Avatar>}
-                                    />
-                                </Link>
-                            </List.Item>
-                        )}
-                    />
+                    <div className={styles.projects}>
+                        <Row className={styles.actions}>
+                            <Col className={styles.search} span={16}>
+                                <Search
+                                    style={{
+                                        width: '70%'
+                                    }}
+                                    enterButton
+                                    placeholder="Find project"
+                                />
+                            </Col>
+                            <Col className={styles.sortBy} span={8}>
+                                <Select placeholder="Sort projects" defaultValue="newest" style={{ width: 120 }}>
+                                    <Option value="newest">Newest</Option>
+                                    <Option value="oldest">Oldest</Option>
+                                    <Option value="a-z">A to Z</Option>
+                                    <Option value="z-a">Z to A</Option>
+                                </Select>
+                            </Col>
+                        </Row>
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={projects}
+                            pagination={size(projects) > 8 ? {
+                                current: currentPage,
+                                total: totalProject,
+                                pageSize: 8,
+                                onChange: handleChangePage
+                            } : false}
+                            renderItem={item => (
+                                <List.Item key={item.id} className={styles.projectItem} extra={(
+                                    <span>{`Created date: ${moment(item.createdAt).format("DD-MM-YYYY")}`}</span>
+                                )}>
+                                    <Link to={`/projects/${item.id}`}>
+                                        <List.Item.Meta
+                                            title={<b>{item.title}</b>}
+                                            description={item.description}
+                                            avatar={<Avatar style={{ backgroundColor: randomColor() }}>{item.avatar || upperCase(item.title[0])}</Avatar>}
+                                        />
+                                    </Link>
+                                </List.Item>
+                            )}
+                        />
+                    </div>
                 )}
             </div>
         </div>

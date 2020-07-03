@@ -11,25 +11,31 @@ export default {
     },
     effects: {
         *fetch({ payload }, { call, put, select }) {
-            const { page, sortBy } = yield select(state => state.projects);
+            const { sortBy } = yield select(state => state.projects);
             //yield call(fetch List projects)
             //use sortBy, page = 1, pageSize = 5
             yield delay(1500);
             const data = {
                 list: sampleProjects,
-                total: 100
+                total: sampleProjects.length
             };
             yield put({
-                type: 'sampleSave',
+                type: 'saveProjects',
                 payload: data
             });
         }
     },
     reducers: {
-        sampleSave(state, { payload }) {
+        saveProjects(state, { payload }) {
             return {
                 ...state,
                 ...payload
+            };
+        },
+        changePage(state, { payload: page }) {
+            return {
+                ...state,
+                page
             };
         }
     }
