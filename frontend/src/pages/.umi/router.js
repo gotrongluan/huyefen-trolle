@@ -108,6 +108,22 @@ const routes = [
         _title_default: 'HuYeFen Admin',
       },
       {
+        path: '/projects/:id',
+        title: 'route.dashboard',
+        component: __IS_BROWSER
+          ? _dvaDynamic({
+              component: () =>
+                import(/* webpackChunkName: "p__Project" */ '../Project'),
+              LoadingComponent: require('/Users/luantnguyen/Documents/2020/javascript/reactjs/huyefen-trolle/frontend/src/components/PageLoading/index')
+                .default,
+            })
+          : require('../Project').default,
+        exact: true,
+        Routes: [require('./TitleWrapper.jsx').default],
+        _title: 'route.dashboard - route.basic',
+        _title_default: 'HuYeFen Admin',
+      },
+      {
         path: '/exception',
         routes: [
           {

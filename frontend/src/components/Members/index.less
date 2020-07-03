@@ -1,0 +1,42 @@
+.members {
+    .main {
+        display: inline-block;
+        .avatar {
+            border: 2px solid white;
+            position: relative;
+            left: 12px;
+        }
+    }
+    .extra {
+        display: inline-block;
+        line-height: 36px;
+        height: 36px;
+        font-weight: bold;
+        color: tomato;
+        font-size: 22px;
+        vertical-align: bottom;
+        span {
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.allMembersModal {
+    .membersRow {
+        margin-bottom: 16px;
+        .memberCol {
+            text-align: center;
+            .avatar {
+                border: 3px solid @primary-color;
+                font-weight: bold;
+            }
+            .name {
+                font-weight: bold;
+                margin-top: 6px;
+            }
+        }
+    }
+}

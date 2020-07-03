@@ -31,6 +31,11 @@ export default [
                 component: 'Dashboard'
             },
             {
+                path: '/projects/:id',
+                title: 'route.dashboard',
+                component: 'Project'
+            },
+            {
                 path: '/exception',
                 routes: [
                     {
