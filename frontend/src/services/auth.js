@@ -7,7 +7,7 @@ export async function login(phone, password) {
             password,
             phone
         }
-    }
+    });
 };
                    
 export async function register(params) {

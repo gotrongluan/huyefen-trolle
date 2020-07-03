@@ -12,7 +12,7 @@ const BasicLayout = ({ children }) => {
         <Layout className={styles.basicLayout}>
             <Header className={styles.header} />
             <ScrollLayout>
-                <Content>
+                <Content style={{ background: 'white' }}>
                     {children}
                 </Content>
                 <Footer />
