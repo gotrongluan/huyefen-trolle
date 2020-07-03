@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'dva';
-import { upperCase, size } from 'lodash';
+import { upperCase, size, filter, map, range, isEmpty } from 'lodash';
+import router from 'umi/router';
 import Link from 'umi/link';
 import moment from 'moment';
 import randomColor from 'randomcolor';
-import { List, Avatar, message, Button, Input, Select, Row, Col } from 'antd';
+import { List, Avatar, AutoComplete, Button, Input, Select, Row, Col, Modal, Form } from 'antd';
 import DivLoading from '@/components/DivLoading';
 import styles from './index.less';
 
 const { Option } = Select;
-const { Search } = Input;
+const { Search, TextArea } = Input;
+const { Option : AutoCompleteOption } = AutoComplete;
+const FormItem = Form.Item;
 
 //props
 const Dashboard = (props) => {
@@ -24,6 +27,11 @@ const Dashboard = (props) => {
         fetchLoading
     } = props;
 
+    const [searchOptions, setSearchOptions] = useState([{ value: '1' }, { value: '2' }]);
+    const [randomColors, setRandomColors] = useState(map(range(8), i => randomColor()));
+    const [newProjectModalVisible, setNewProjectModalVisible] = useState(false);
+    const [newProjectTitle, setNewProjectTitle] = useState('');
+    const [newProjectDesc, setNewProjectDesc] = useState('');
     useEffect(() => {
         if (!projects) {
             dispatch({
@@ -32,12 +40,60 @@ const Dashboard = (props) => {
         }
     }, []);
 
+    useEffect(() => {
+        if (projects) {
+            setSearchOptions(map(projects, mapProjectToSearchOption));
+        }
+    }, [projects]);
+
     const handleChangePage = page => {
+        setRandomColors(map(range(8),  i => randomColor()));
         dispatch({
             type: 'projects/changePage',
             payload: page
         });
-    }
+    };
+
+    const handleSearchProjects = value => {
+        if (!value) setSearchOptions([]);
+        setSearchOptions(map(
+            filter(projects, project => {
+                const upperCaseTitle = upperCase(project.title);
+                const upperCaseDescription = upperCase(project.description);
+                const upperCaseValue = upperCase(value);
+                return upperCaseTitle.includes(upperCaseValue) || upperCaseDescription.includes(upperCaseValue);
+            }),
+            mapProjectToSearchOption
+        ));
+    };
+
+    const handleCreateNewProject = () => {
+        dispatch({
+            type: 'projects/create',
+            payload: {
+                title: newProjectTitle,
+                description: newProjectDesc
+            }
+        });
+        setNewProjectDesc('');
+        setNewProjectTitle('');
+        setNewProjectModalVisible(false);
+    };
+
+    const createProjectDisabled = isEmpty(newProjectDesc) || isEmpty(newProjectTitle);
+
+
+    const mapProjectToSearchOption = project => ({
+        key: project.id,
+        value: project.id,
+        label: project.title
+    });
+
+    const renderOption = option => (
+        <AutoCompleteOption key={option.key} value={option.value}>
+            <div>{option.label}</div>
+        </AutoCompleteOption>
+    )
 
     const name = user ? user.name : '...';
 
@@ -47,7 +103,7 @@ const Dashboard = (props) => {
                 {`Welcome, ${name}`}
             </div>
             <div className={styles.createNewProject}>
-                <Button icon="plus" type="primary">
+                <Button icon="plus" type="primary" onClick={() => setNewProjectModalVisible(true)}>
                     New project
                 </Button>
             </div>
@@ -58,13 +114,20 @@ const Dashboard = (props) => {
                     <div className={styles.projects}>
                         <Row className={styles.actions}>
                             <Col className={styles.search} span={16}>
-                                <Search
+                                <AutoComplete
+                                    dataSource={map(searchOptions, renderOption)}
+                                    onSearch={handleSearchProjects}
+                                    onSelect={projectId => router.push(`/projects/${projectId}`)}
                                     style={{
                                         width: '70%'
                                     }}
-                                    enterButton
-                                    placeholder="Find project"
-                                />
+                                >
+                                    <Search
+                                        style={{ width: '100%' }}
+                                        enterButton
+                                        placeholder="Find project"
+                                    />
+                                </AutoComplete>
                             </Col>
                             <Col className={styles.sortBy} span={8}>
                                 <Select placeholder="Sort projects" defaultValue="newest" style={{ width: 120 }}>
@@ -84,7 +147,7 @@ const Dashboard = (props) => {
                                 pageSize: 8,
                                 onChange: handleChangePage
                             } : false}
-                            renderItem={item => (
+                            renderItem={(item, i) => (
                                 <List.Item key={item.id} className={styles.projectItem} extra={(
                                     <span>{`Created date: ${moment(item.createdAt).format("DD-MM-YYYY")}`}</span>
                                 )}>
@@ -92,7 +155,7 @@ const Dashboard = (props) => {
                                         <List.Item.Meta
                                             title={<b>{item.title}</b>}
                                             description={item.description}
-                                            avatar={<Avatar style={{ backgroundColor: randomColor() }}>{item.avatar || upperCase(item.title[0])}</Avatar>}
+                                            avatar={<Avatar style={{ backgroundColor: randomColors[i % 8] }}>{item.avatar || upperCase(item.title[0])}</Avatar>}
                                         />
                                     </Link>
                                 </List.Item>
@@ -101,6 +164,37 @@ const Dashboard = (props) => {
                     </div>
                 )}
             </div>
+            <Modal
+                className={styles.newProjectModal}
+                title="New Project"
+                visible={newProjectModalVisible}
+                onCancel={() => setNewProjectModalVisible(false)}
+                onOk={handleCreateNewProject}
+                okButtonProps={{
+                    disabled: createProjectDisabled
+                }}
+            >
+                <Form>
+                    <FormItem label="Title">
+                        <Input
+                            placeholder="Project title"
+                            value={newProjectTitle}
+                            onChange={e => setNewProjectTitle(e.target.value)}
+                        />
+                    </FormItem>
+                    <FormItem label="Description">
+                        <TextArea
+                            placeholder="Project description"
+                            autoSize={{
+                                minRows: 6,
+                                maxRows: 6
+                            }}
+                            value={newProjectDesc}
+                            onChange={e => setNewProjectDesc(e.target.value)}
+                        />
+                    </FormItem>
+                </Form>
+            </Modal>
         </div>
     )
 };
