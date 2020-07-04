@@ -27,7 +27,9 @@ const Stage = ({ title, tasks, }) => {
 const Project = ({ dispatch, match, ...props }) => {
     const {
         project,
-        loading
+        loading,
+        members,
+        memberLoading
     } = props;
     const projectId = match.params.id;
     const [descriptionVisible, setDescriptonVisible] = useState(false);
@@ -37,6 +39,11 @@ const Project = ({ dispatch, match, ...props }) => {
             type: 'project/fetch',
             payload: projectId
         });
+        if (!members) {
+            dispatch({
+                type: 'members/fetch'
+            });
+        }
         return () => dispatch({
             type: 'project/reset'
         });
@@ -66,15 +73,19 @@ const Project = ({ dispatch, match, ...props }) => {
                             </div>
                         </Col>
                         <Col className={styles.members} span={8}>
-                            <div className={styles.title}>
-                                <span>Members</span>
-                                <span className={styles.badge}>
-                                    <Badge count={project.members.length} />
-                                </span>
-                            </div>
-                            <div>
-                                <Members maxVisible={4} members={project.members} />
-                            </div>
+                            {members && (
+                                <>
+                                    <div className={styles.title}>
+                                        <span>Members</span>
+                                        <span className={styles.badge}>
+                                            <Badge count={members.length} />
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <Members maxVisible={4} members={members} />
+                                    </div>
+                                </>
+                            )}
                         </Col>
                     </>
                 )}
@@ -85,20 +96,16 @@ const Project = ({ dispatch, match, ...props }) => {
                         <DivLoading  />
                     </div>
                 ) : (
-                    <>
-                        <div className={styles.newTask}>
-                            <Button type="primary" icon="plus">
-                                Create Task
-                            </Button>
-                        </div>
-                        <Row className={styles.list} gutter={8}>
-                            {_.map(_.keys(project.tasks), key => (
-                                <Stage key={key} title={key} tasks={project.tasks[key]} />
-                            ))}
-                        </Row>
-                    </>
+                    <Row className={styles.list} gutter={8}>
+                        {_.map(_.keys(project.tasks), key => (
+                            <Stage key={key} title={key} tasks={project.tasks[key]} />
+                        ))}
+                    </Row>
                 )}
             </Row>
+            <div disabled={!project || loading} className={styles.addTaskBtn} type="primary" size="large">
+                <Icon type="plus" />
+            </div>
             {project && (
                 <Modal
                     className={styles.descModal}
@@ -114,7 +121,9 @@ const Project = ({ dispatch, match, ...props }) => {
     )
 };
 
-export default connect(({ loading, project }) => ({
+export default connect(({ loading, project, members }) => ({
     project,
-    loading: loading.effects['project/fetch']
+    members,
+    loading: loading.effects['project/fetch'],
+    memberLoading: loading.effects['members/fetch']
 }))(Project);

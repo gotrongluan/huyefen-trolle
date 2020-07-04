@@ -1,5 +1,23 @@
 .project {
-    
+    .addTaskBtn {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        display: inline-block;
+        background: @primary-color;
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+        position: fixed;
+        bottom: 24px;
+        cursor: pointer;
+        left: 24px;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
     .header {
         background: rgba(29, 165, 122, 0.04);
         margin-bottom: 10px;
@@ -55,7 +73,7 @@
         }
         .list {
             background: url(https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
-            min-height: calc(100vh - 266px);
+            min-height: calc(100vh - 186px);
             padding: 12px 16px;
             .stage {
                 background: transparent;
