@@ -1,10 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
-import { Col, Row, Icon, Modal, Badge } from 'antd';
+import _ from 'lodash';
+import { Col, Row, Icon, Modal, Badge, Button } from 'antd';
 import DivLoading from '@/components/DivLoading';
 import Members from '@/components/Members';
 import styles from './index.less';
+
+const Stage = ({ title, tasks, }) => {
+    return (
+        <Col className={styles.stage} span={6}>
+            <div className={styles.wrapper}>
+                <div className={styles.wrapper2}>
+                    <div className={styles.title}>
+                        {title}
+                    </div>
+                    <div className={styles.tasksInStage}>
+
+                    </div>
+                </div>
+            </div>
+        </Col>
+    );
+};
 
 const Project = ({ dispatch, match, ...props }) => {
     const {
@@ -62,7 +80,24 @@ const Project = ({ dispatch, match, ...props }) => {
                 )}
             </Row>
             <Row className={styles.tasks}>
-
+                {!project || loading ? (
+                    <div className={styles.loading}>
+                        <DivLoading  />
+                    </div>
+                ) : (
+                    <>
+                        <div className={styles.newTask}>
+                            <Button type="primary" icon="plus">
+                                Create Task
+                            </Button>
+                        </div>
+                        <Row className={styles.list} gutter={8}>
+                            {_.map(_.keys(project.tasks), key => (
+                                <Stage key={key} title={key} tasks={project.tasks[key]} />
+                            ))}
+                        </Row>
+                    </>
+                )}
             </Row>
             {project && (
                 <Modal
