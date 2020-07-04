@@ -1,0 +1,39 @@
+.task {
+    background: white;
+    border-radius: 4px;
+    padding: 16px 12px 40px;
+    position: relative;
+    width: 100%;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border: 0.5px solid white;
+    &:hover {
+        opacity: 0.8;
+    }
+    &:last-child {
+        margin-bottom: 0;
+    }
+    .title {
+        font-weight: bold;
+        font-size: 18px;
+        color: @primary-color;
+    }
+    .description {
+        margin-top: 20px;
+        font-size: 16px;
+    }
+    .avatar {
+        position: absolute;
+        top: 22px;
+        right: 12px;
+    }
+    .next {
+        position: absolute;
+        bottom: 16px;
+        right: 12px;
+        font-weight: bold;
+        font-size: 20px;
+        color: @primary-color;
+        cursor: pointer;
+    }
+}
