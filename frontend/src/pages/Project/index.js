@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
 import _ from 'lodash';
-import { Col, Row, Icon, Modal, Badge, Button } from 'antd';
+import { Col, Row, Icon, Modal, Badge, Button, Form, Input, AutoComplete } from 'antd';
 import DivLoading from '@/components/DivLoading';
 import Members from '@/components/Members';
 import styles from './index.less';
+
+const FormItem = Form.Item;
+const { TextArea } = Input;
 
 const Stage = ({ title, tasks, }) => {
     return (
@@ -33,6 +36,9 @@ const Project = ({ dispatch, match, ...props }) => {
     } = props;
     const projectId = match.params.id;
     const [descriptionVisible, setDescriptonVisible] = useState(false);
+    const [newTaskVisible, setNewTaskVisible] = useState(false);
+    const [newTaskTitle, setNewTaskTitle] = useState('');
+    const [newTaskDescription, setNewTaskDescription] = useState('');
 
     useEffect(() => {
         dispatch({
@@ -48,6 +54,12 @@ const Project = ({ dispatch, match, ...props }) => {
             type: 'project/reset'
         });
     }, [projectId]);
+
+    const handleCreateNewTask = () => {
+
+    };
+
+    const addNewTaskDisabled = _.isEmpty(newTaskTitle) || _.isEmpty(newTaskDescription);
 
     return (
         <div className={styles.project}>
@@ -103,7 +115,7 @@ const Project = ({ dispatch, match, ...props }) => {
                     </Row>
                 )}
             </Row>
-            <div disabled={!project || loading} className={styles.addTaskBtn} type="primary" size="large">
+            <div disabled={!project || loading} className={styles.addTaskBtn} type="primary" size="large" onClick={() => setNewTaskVisible(true)}>
                 <Icon type="plus" />
             </div>
             {project && (
@@ -117,6 +129,41 @@ const Project = ({ dispatch, match, ...props }) => {
                     {project.description}
                 </Modal>
             )}
+            <Modal
+                className={styles.newTaskModal}
+                visible={newTaskVisible}
+                maskClosable={false}
+                onOk={handleCreateNewTask}
+                onCancel={() => setNewTaskVisible(false)}
+                title="Create new task"
+                okButtonProps={{
+                    disabled: addNewTaskDisabled
+                }}
+            >
+                <Form>
+                    <FormItem label="Title" required>
+                        <Input
+                            value={newTaskTitle}
+                            placeholder="Task title"
+                            onChange={e => setNewTaskTitle(e.target.value)}
+                        />
+                    </FormItem>
+                    <FormItem label="Description" required>
+                        <TextArea
+                            autoSize={{
+                                minRows: 6,
+                                maxRows: 6
+                            }}
+                            placeholder="Task description"
+                            value={newTaskDescription}
+                            onChange={e => setNewTaskDescription(e.target.value)}
+                        />
+                    </FormItem>
+                    <FormItem label="Assignee">
+                        
+                    </FormItem>
+                </Form>
+            </Modal>
         </div>
     )
 };
