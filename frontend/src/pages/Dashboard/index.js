@@ -55,7 +55,6 @@ const Dashboard = (props) => {
     };
 
     const handleSearchProjects = value => {
-        if (!value) setSearchOptions([]);
         setSearchOptions(map(
             filter(projects, project => {
                 const upperCaseTitle = upperCase(project.title);
