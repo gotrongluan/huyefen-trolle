@@ -10,7 +10,7 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<jsf.version>2.2.15</jsf.version>
-		<junit.version>3.8.1</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<primefaces.version>6.2</primefaces.version>
 		<log4j-version>1.2.17</log4j-version>
 		<maven.compiler.source>1.8</maven.compiler.source>
